@@ -12,24 +12,20 @@ function clearBoxes() {
 }
 
 clearBoxes();
-GET(true,true);
+GET(true, true);
 
-function GET(option,init) {
+function GET(option, init) {
 
     let id;
 
     if (option && !init) {
         id = document.getElementsByName('id_get')[0].value;
-    }
-    
-    else if (option && init || !option && init) {
+    } else if (option && init || !option && init) {
+        id = "";
+    } else {
         id = "";
     }
-    
-    else {
-        id = "";
-    }
-    
+
 
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -44,11 +40,10 @@ function GET(option,init) {
             if (option) {
                 if (!id) {
                     for (let i = 0; i < size; i++) {
-                        string = string + "<tr><td>" + result[i].id + "</td><td>" + result[i].name + "</td><td>"+ result[i].comment + "</td></tr>"
+                        string = string + "<tr><td>" + result[i].id + "</td><td>" + result[i].name + "</td><td>" + result[i].comment + "</td></tr>"
                     }
-                }
-                else {
-                    string = string + "<tr><td>" + result.id + "</td><td>" + result.name + "</td><td>"+ result.comment + "</td></tr>"
+                } else {
+                    string = string + "<tr><td>" + result.id + "</td><td>" + result.name + "</td><td>" + result.comment + "</td></tr>"
                 }
                 document.getElementById("insert").innerHTML = string;
             }
@@ -80,7 +75,7 @@ function POST() {
     xhttp.open("POST", "https://retoolapi.dev/DO1qZf/pachi_api", false);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify(body));
-    GET(true,true);
+    GET(true, true);
 }
 
 function DELETE(option, identifier) {
@@ -97,13 +92,13 @@ function DELETE(option, identifier) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            GET(true,false);
+            GET(true, false);
             clearBoxes();
         }
     };
     xhttp.open("DELETE", "https://retoolapi.dev/DO1qZf/pachi_api/" + id, true);
     xhttp.send();
-    setTimeout(GET(true),1000);
+    setTimeout(GET(true), 1000);
 }
 
 function DELETE_ALL() {
@@ -119,10 +114,10 @@ function DELETE_ALL() {
             if (i < range - 1) {
                 DELETE(true, array[i]);
             }
-            
+
             i++;
-            
-            if(i == range) {
+
+            if (i == range) {
                 GET(true);
                 clearInterval(timeValue);
             }
