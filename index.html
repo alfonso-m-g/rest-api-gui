@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -7,28 +9,77 @@
       <title>Document</title>
       <link rel="stylesheet" href="style.css">
    </head>
-   <body>
-      <input type="text" name="name" placeholder="name"><br>
-      <input type="text" name="comment" placeholder="comentario"><br>
-      <button onclick="POST()">POST</button><br><br>
-      <input type="text" name="id_get" placeholder="id"><br>
-      <button type="submit" onclick="GET(true,false)">GET</button><br><br>
-      <input type="text" name="id_delete" placeholder="id"><br>
-      <button type="submit" onclick="DELETE(false,-1)">DELETE</button><br>
-      <br><b>Write delete all to delete all entries</b><br>
-      <input type="text" name="delete_textbox" placeholder="delete all"><br>
-      <button type="submit" onclick="DELETE_ALL()">DELETE ALL</button><br><br>
-      <div id="get"></div>
-      <table class="rtable">
-         <thead>
+   <body style="background-color:#d0d1f2;">
+      <table >
+         <tbody>
             <tr>
-               <th>ID</th>
-               <th>Name</th>
-               <th>Comment</td>
+               <td>
+                  <div class="container">
+                     <div class="inputs">
+                        <div class="brand-title">Create new comment</div>
+                        <br>
+                        <label>Name</label>
+                        <input type="text" name="name" placeholder="name">
+                        <label>Comment</label>
+                        <input type="text" name="comment" placeholder="comentario">
+                        <button onclick="POST()">POST</button>
+                     </div>
+                  </div>
+               </td>
+               <td>
+                  <div class="container">
+                     <div class="inputs">
+                        <div class="brand-title">Get comment by id</div>
+                        <br>
+                        <label>ID</label>
+                        <input type="text" name="id_get" placeholder="id">
+                        <button type="submit" onclick="GET(true,false)">GET</button>
+                     </div>
+                  </div>
+                  </div>
+               </td>
+               <td>
+                  <div class="container">
+                     <div class="inputs">
+                        <div class="brand-title">Delete comment by id</div>
+                        <br>
+                        <label>ID</label>
+                        <input type="text" name="id_delete" placeholder="id">
+                        <button type="submit" onclick="DELETE(false,-1)">DELETE</button>
+                     </div>
+                  </div>
+               </td>
             </tr>
-         </thead>
-         <tbody id="insert"></tbody>
+            <tr>
+               <td>
+                  <div class="container">
+                     <div class="inputs">
+                        <div class="brand-title">Delete all comments</div>
+                        <br>
+                        <label>Write delete all</label>
+                        <input type="text" name="delete_textbox" placeholder="delete all">
+                        <button type="submit" onclick="DELETE_ALL()">DELETE ALL</button>
+                     </div>
+                  </div>
+               </td>
+               <td colspan="2">
+                  <div class="container">
+                     <table class="rtable">
+                        <thead>
+                           <tr>
+                              <th>ID</th>
+                              <th>Name</th>
+                              <th>Comment</td>
+                           </tr>
+                        </thead>
+                        <tbody id="insert"></tbody>
+                     </table>
+                  </div>
+               </td>
+            </tr>
+         </tbody>
       </table>
       <script src="main.js"></script>
    </body>
 </html>
+
