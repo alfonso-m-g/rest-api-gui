@@ -15,7 +15,7 @@ pipeline {
         stage('Build app on docker') {
             steps {
                 sh("ssh $USER@$HOST 'sudo docker stop rest-api && sudo docker rm rest-api'")
-                sh("ssh $USER@$HOST 'sudo docker run -d -it -p 8081:80 -v /home/ubuntu/app/images-app:/usr/share/nginx/html --name rest-api nginx:latest'")
+                sh("ssh $USER@$HOST 'sudo docker run -d -it -p 8081:80 -v /home/ubuntu/api/rest-api-gui:/usr/share/nginx/html --name rest-api nginx:latest'")
             }
         }
     }
