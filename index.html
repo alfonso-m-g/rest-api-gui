@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <input type="text" name="name" placeholder="name"><br>
@@ -12,7 +13,7 @@
     <button onclick="POST()">POST</button><br><br>
 
     <input type="text" name="id_get" placeholder="id"><br>
-    <button type="submit" onclick="GET(true)">GET</button><br><br>
+    <button type="submit" onclick="GET(true,false)">GET</button><br><br>
     
     <input type="text" name="id_delete" placeholder="id"><br>
     <button type="submit" onclick="DELETE(false,-1)">DELETE</button><br>
@@ -23,23 +24,17 @@
 
     <div id="get"></div>
 
-    <table>
+    <table class="rtable">
+      <thead>
         <tr>
-          <th>Company</th>
-          <th>Contact</th>
-          <th>Country</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Comment</td>
         </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>Maria Anders</td>
-          <td>Germany</td>
-        </tr>
-        <tr>
-          <td>Centro comercial Moctezuma</td>
-          <td>Francisco Chang</td>
-          <td>Mexico</td>
-        </tr>
-      </table> 
+      </thead>
+      <tbody id="insert"></tbody>
+    </table>
+
 
     <script src="main.js"></script>
 </body>

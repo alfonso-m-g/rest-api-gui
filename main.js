@@ -3,28 +3,57 @@ function Comment(name, comment) {
     this.comment = comment;
 }
 
-function GET(option) {
+function clearBoxes() {
+    document.getElementsByName('name')[0].value = "";
+    document.getElementsByName('comment')[0].value = "";
+    document.getElementsByName('id_get')[0].value = "";
+    document.getElementsByName('id_delete')[0].value = "";
+    document.getElementsByName('delete_textbox')[0].value = "";
+}
+
+clearBoxes();
+GET(true,true);
+
+function GET(option,init) {
 
     let id;
 
-    if (option) {
+    if (option && !init) {
         id = document.getElementsByName('id_get')[0].value;
-    } else {
+    }
+    
+    else if (option && init || !option && init) {
         id = "";
     }
+    
+    else {
+        id = "";
+    }
+    
 
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
 
         if (this.readyState == 4 && this.status == 200) {
 
+            clearBoxes();
+            let result = JSON.parse(this.responseText);
+            let size = result.length;
+            let string = "";
+
             if (option) {
-                document.getElementById("get").innerHTML = this.responseText;
+                if (!id) {
+                    for (let i = 0; i < size; i++) {
+                        string = string + "<tr><td>" + result[i].id + "</td><td>" + result[i].name + "</td><td>"+ result[i].comment + "</td></tr>"
+                    }
+                }
+                else {
+                    string = string + "<tr><td>" + result.id + "</td><td>" + result.name + "</td><td>"+ result.comment + "</td></tr>"
+                }
+                document.getElementById("insert").innerHTML = string;
             }
 
             if (!id) {
-                let result = JSON.parse(this.responseText);
-                let size = result.length;
                 let array = [];
 
                 for (let i = 0; i < size; i++) {
@@ -46,16 +75,12 @@ function POST() {
     let comment = document.getElementsByName('comment')[0].value;
     let body = new Comment(name, comment);
 
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            alert(this.responseText);
-        }
-    };
+    var xhttp = new XMLHttpRequest();
 
-    xhttp.open("POST", "https://retoolapi.dev/DO1qZf/pachi_api", true);
+    xhttp.open("POST", "https://retoolapi.dev/DO1qZf/pachi_api", false);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify(body));
+    GET(true,true);
 }
 
 function DELETE(option, identifier) {
@@ -70,12 +95,18 @@ function DELETE(option, identifier) {
     }
 
     let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            GET(true,false);
+            clearBoxes();
+        }
+    };
     xhttp.open("DELETE", "https://retoolapi.dev/DO1qZf/pachi_api/" + id, true);
     xhttp.send();
+    setTimeout(GET(true),1000);
 }
 
 function DELETE_ALL() {
-    GET(false);
     let array = localStorage.getItem("indexes");
     array = JSON.parse("[" + array + "]");
     let range = localStorage.getItem("size");
@@ -84,12 +115,17 @@ function DELETE_ALL() {
 
     if (confirmation == "delete all") {
         const timeValue = setInterval(function() {
-            DELETE(true, array[i]);
+            clearBoxes();
+            if (i < range - 1) {
+                DELETE(true, array[i]);
+            }
+            
             i++;
-
-            if (i == range - 1) {
+            
+            if(i == range) {
+                GET(true);
                 clearInterval(timeValue);
             }
-        }, 1);
+        }, 1000);
     }
 }
