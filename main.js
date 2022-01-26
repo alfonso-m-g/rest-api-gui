@@ -1,3 +1,6 @@
+clearBoxes();
+GET(true, true);
+
 function Comment(name, comment) {
     this.name = name;
     this.comment = comment;
@@ -10,9 +13,6 @@ function clearBoxes() {
     document.getElementsByName('id_delete')[0].value = "";
     document.getElementsByName('delete_textbox')[0].value = "";
 }
-
-clearBoxes();
-GET(true, true);
 
 function GET(option, init) {
 
@@ -39,19 +39,27 @@ function GET(option, init) {
 
             if (option) {
                 if (!id) {
-                    for (let i = 0; i < size; i++) {
-                        string = string + "<tr><td>" + result[i].id + "</td><td>" + result[i].name + "</td><td>" + result[i].comment + "</td></tr>"
+                    for (let i = 0 ; i < size ; i++) {
+                        string = string + "<tr><td>" + result[i].id + "</td><td>" + result[i].name + "</td><td id='comment_" + i + "'>" + result[i].comment + "</td></tr>"
+                        
                     }
                 } else {
                     string = string + "<tr><td>" + result.id + "</td><td>" + result.name + "</td><td>" + result.comment + "</td></tr>"
                 }
                 document.getElementById("insert").innerHTML = string;
+
+                for(let j = 0; j < size ; j++) {
+
+                    var arrayOfLines = fold(result[j].comment, 80, 'ws');
+                    var foldedString = arrayOfLines.join('<br/>');
+                    document.getElementById("comment_" + j).innerHTML=foldedString;
+                }
             }
 
             if (!id) {
                 let array = [];
 
-                for (let i = 0; i < size; i++) {
+                for (let i = 0 ; i < size ; i++) {
                     array.push(result[i].id);
                 }
 
@@ -122,5 +130,29 @@ function DELETE_ALL() {
                 clearInterval(timeValue);
             }
         }, 1000);
+    }
+}
+
+function fold(s, n, useSpaces, a) {
+    a = a || [];
+    if (s.length <= n) {
+        a.push(s);
+        return a;
+    }
+    var line = s.substring(0, n);
+    if (! useSpaces) { // insert newlines anywhere
+        a.push(line);
+        return fold(s.substring(n), n, useSpaces, a);
+    }
+    else { // attempt to insert newlines after whitespace
+        var lastSpaceRgx = /\s(?!.*\s)/;
+        var idx = line.search(lastSpaceRgx);
+        var nextIdx = n;
+        if (idx > 0) {
+            line = line.substring(0, idx);
+            nextIdx = idx;
+        }
+        a.push(line);
+        return fold(s.substring(nextIdx), n, useSpaces, a);
     }
 }
