@@ -118,6 +118,7 @@ body {
 .container {
   position: relative;
   height: 400px;
+  width: 300px;
   max-width: 100%;
   border-radius: 20px;
   padding: 20px;
