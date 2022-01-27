@@ -40,7 +40,7 @@ function GET(option, init) {
             if (option) {
                 if (!id) {
                     for (let i = 0 ; i < size ; i++) {
-                        string = string + "<tr><td>" + result[i].id + "</td><td>" + result[i].name + "</td><td id='comment_" + i + "'>" + result[i].comment + "</td></tr>"
+                        string = string + "<tr><td>" + result[i].id + "</td><td>" + result[i].name + "</td><td style='text-align:left;' id='comment_" + i + "'>" + result[i].comment + "</td></tr>"
                         
                     }
                 } else {
@@ -50,7 +50,7 @@ function GET(option, init) {
 
                 for(let j = 0; j < size ; j++) {
 
-                    var arrayOfLines = fold(result[j].comment, 80, 'ws');
+                    var arrayOfLines = fold(result[j].comment, 50, 'ws');
                     var foldedString = arrayOfLines.join('<br/>');
                     document.getElementById("comment_" + j).innerHTML=foldedString;
                 }
