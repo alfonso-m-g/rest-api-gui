@@ -22,12 +22,10 @@ html {
   background-repeat: no-repeat;
 }
 .rtable td:first-child, .rtable--flip tbody tr:first-child {
-  background-image: linear-gradient(to right, rgba(255,255,255, 1) 50%, rgba(255,255,255, 0) 100%);
   background-repeat: no-repeat;
   background-size: 20px 100%;
 }
 .rtable td:last-child, .rtable--flip tbody tr:last-child {
-  background-image: linear-gradient(to left, rgba(255,255,255, 1) 50%, rgba(255,255,255, 0) 100%);
   background-repeat: no-repeat;
   background-position: 100% 0;
   background-size: 20px 100%;
